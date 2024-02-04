@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 2024-02-03--0001-service-user-role-data
+    author: tallink
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: user_id,role_id
+      file: data/2023-02-03--0001-service-user-role.csv
+      relativeToChangelogFile: true
+      separator: ;
+      quotChar: '"'
+      seperator: ';'
+      encoding: UTF-8
+      tableName: service_user_role

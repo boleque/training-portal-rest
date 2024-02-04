@@ -1,0 +1,221 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1706973420195-1
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_course
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: start_time
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: end_time
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: current_number_of_participants
+                  type: INT
+              - column:
+                  name: max_number_of_participants
+                  type: INT
+            tableName: course
+  - changeSet:
+      id: 1706973420195-2
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_participant
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+            tableName: participant
+  - changeSet:
+      id: 1706973420195-3
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: course_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: participant_id
+                  type: BIGINT
+            tableName: participant_course
+  - changeSet:
+      id: 1706973420195-4
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_role
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+            tableName: role
+  - changeSet:
+      id: 1706973420195-5
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_service_user
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: username
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: VARCHAR(255)
+            tableName: service_user
+  - changeSet:
+      id: 1706973420195-6
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_service_user_role
+                  name: role_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_service_user_role
+                  name: user_id
+                  type: BIGINT
+            tableName: service_user_role
+  - changeSet:
+      id: 1706973420195-7
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: title
+            constraintName: uc_course_title
+            tableName: course
+  - changeSet:
+      id: 1706973420195-8
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_participant_name
+            tableName: participant
+  - changeSet:
+      id: 1706973420195-9
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: username
+            constraintName: uc_service_user_username
+            tableName: service_user
+  - changeSet:
+      id: 1706973420195-10
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: course_id
+            baseTableName: participant_course
+            constraintName: fk_parcou_on_course
+            referencedColumnNames: id
+            referencedTableName: course
+  - changeSet:
+      id: 1706973420195-11
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: participant_id
+            baseTableName: participant_course
+            constraintName: fk_parcou_on_participant
+            referencedColumnNames: id
+            referencedTableName: participant
+  - changeSet:
+      id: 1706973420195-12
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTableName: service_user_role
+            constraintName: fk_seruserol_on_role
+            referencedColumnNames: id
+            referencedTableName: role
+  - changeSet:
+      id: 1706973420195-13
+      author: tallink (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: service_user_role
+            constraintName: fk_seruserol_on_service_user
+            referencedColumnNames: id
+            referencedTableName: service_user
+

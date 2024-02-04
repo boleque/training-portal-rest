@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  trainings-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trainings-app
+    networks:
+      - trainings_network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - trainings-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://trainings_db:5432/trainings
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+  trainings-db:
+    image: "postgres:13"
+    container_name: trainings_db
+    restart: unless-stopped
+    volumes:
+      - trainings_data:/var/lib/postgresql
+    networks:
+      - trainings_network
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=trainings
+
+networks:
+  trainings_network:
+    driver: bridge
+
+volumes:
+  trainings_data:
+
